@@ -21,6 +21,7 @@ function konamiCheck(_keyCode) {
 	var _diffTime = _now - keyLastTime;
 	var _bFailTime = false;
 	var _bFailKey = false;
+	var _bSuccess = false;
 
 	// == Test if TOO SLOW
 	_bFailTime = ((keyLastTime != 0) && (_diffTime > konamiDifficulty)) 
@@ -37,32 +38,33 @@ function konamiCheck(_keyCode) {
 		} else {
 			$("#logspan").html("FAIL ON KEY " + keyGood + ".");
 		}
-		keyGood = 0;
-		keyLastTime = 0;
-		return;
 	}
 
 	// == Test if Konami code fully done
-	if (keyGood == konamiCodeKeyChain.length - 1) {
+	_bSuccess = (keyGood == konamiCodeKeyChain.length - 1)
+	if (_bSuccess) {
 		$("#logspan").html("!! PERFECT !!");
 	}
 
 	// == Exit and reinit if fail or full success
-	if (_bFailTime || _bFailKey || keyGood == (konamiCodeKeyChain.length - 1)) {
+	if (_bFailTime || _bFailKey || _bSuccess) {
 		keyGood = 0;
 		keyLastTime = 0;
-		return;
+		return _bSuccess;
 	}
 
 	// == Key and Time OK, continue counting
+	$("#logspan").html("GOOD " + (keyGood + 1));
 	keyGood++;
-	$("#logspan").html("GOOD " + keyGood);
 	keyLastTime = _now;
+	return false;
 }
 /* **********************************       ************************** */
 
 function checkKeyR(e) {
-	konamiCheck(e.keyCode);
+	if (konamiCheck(e.keyCode)) {
+		// YEAH
+	}
 }
 
 /* ********************************** READY ************************** */
