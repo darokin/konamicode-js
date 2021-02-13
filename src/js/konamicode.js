@@ -5,23 +5,62 @@
 // up down left rigth a b
 // 38 40 37 39 65 66
 const konamiCodeKeyChain = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+const konamiPicsSize = "48x45"
+const konamiPics = [
+	"kc_up_" + konamiPicsSize + ".png",
+	"kc_up_" + konamiPicsSize + ".png",
+	"kc_down_" + konamiPicsSize + ".png",
+	"kc_down_" + konamiPicsSize + ".png",
+	"kc_left_" + konamiPicsSize + ".png",
+	"kc_right_" + konamiPicsSize + ".png",
+	"kc_left_" + konamiPicsSize + ".png",
+	"kc_right_" + konamiPicsSize + ".png",
+	"kc_b_" + konamiPicsSize + ".png",
+	"kc_a_" + konamiPicsSize + ".png"
+]
+const konamiText = [
+	"UP", "UP",
+	"DOWN", "DOWN",
+	"LEFT", "RIGHT",
+	"LEFT", "RIGHT",
+	"B", "A"
+]
+
+const iconError = "<i class=\"fas fa-times\"></i>";
+const iconOk = "<i class=\"fas fa-check-circle\"></i>";
+const iconSuccess = "<i class=\"fas fa-heart\"></i>";
 
 // Max time in ms between 2 keystrokes
-const konamiDifficultyEasy = 1000;
-var konamiDifficulty = konamiDifficultyEasy;
+const difficulties = [
+	{"text": "Easy", 
+	"speed": 1000},
+	{"text": "Normal", 
+	"speed": 750},
+	{"text": "Hard", 
+	"speed": 500},
+	{"text": "Hard++", 
+	"speed": 250}
+]
+var konamiDifficulty = difficulties[2].speed;
 
 var keyChain = new Array();
 var keyLastTime = 0;
 var keyGood = 0;
 
+var bWait = false;
+
 /* ********************************** KONAMI CODE ************************** */
 function konamiCheck(_keyCode) {
-	var _nowDate = new Date(); 
-	var _now = _nowDate.getTime();
-	var _diffTime = _now - keyLastTime;
-	var _bFailTime = false;
-	var _bFailKey = false;
-	var _bSuccess = false;
+	if (bWait) {
+		return;
+	}
+
+	let _nowDate = new Date(); 
+	let _now = _nowDate.getTime();
+	let _diffTime = _now - keyLastTime;
+	let _bFailTime = false;
+	let _bFailKey = false;
+	let _bSuccess = false;
 
 	// == Test if TOO SLOW
 	_bFailTime = ((keyLastTime != 0) && (_diffTime > konamiDifficulty)) 
@@ -31,35 +70,63 @@ function konamiCheck(_keyCode) {
 
 	if (_bFailTime || _bFailKey) {
 		if (_bFailTime) {
-			$("#logspan").html("TOO SLOW on key " + keyGood + " you took " + _diffTime + "ms.");
+			$("#logspan").html(iconError + " Too slow on key n°" + (keyGood + 1) + " [" + konamiText[keyGood] + "] you took " + _diffTime + "ms.");
 			if (_bFailKey) {
-				$("#logspan").append(" And you were typing the wrong key anyway.")
+				$("#logspan").append(" You were typing the wrong key anyway ;)")
 			}
 		} else {
-			$("#logspan").html("FAIL ON KEY " + keyGood + ".");
+			$("#logspan").html(iconError + " Fail on key n°" + (keyGood + 1) + " [" + konamiText[keyGood] + "].");
 		}
 	}
+
+	// == Update visuals
+	updateKeyVisuals(keyGood, (_bFailTime || _bFailKey))
 
 	// == Test if Konami code fully done
 	_bSuccess = (keyGood == konamiCodeKeyChain.length - 1)
 	if (_bSuccess) {
-		$("#logspan").html("!! PERFECT !!");
+		$("#logspan").html(iconSuccess + " WELL DONE!");
 	}
 
 	// == Exit and reinit if fail or full success
 	if (_bFailTime || _bFailKey || _bSuccess) {
+		startWait(keyGood, _bSuccess)
 		keyGood = 0;
 		keyLastTime = 0;
 		return _bSuccess;
 	}
 
 	// == Key and Time OK, continue counting
-	$("#logspan").html("GOOD " + (keyGood + 1));
+	$("#logspan").html(iconOk + " Key n°" + (keyGood + 1) + " [" + konamiText[keyGood] + "] validated.");
+	$("#key" + keyGood).css("opacity", 1);
 	keyGood++;
 	keyLastTime = _now;
 	return false;
 }
 /* **********************************       ************************** */
+
+function updateKeyVisuals(_indKey, _bFail) {
+	if (_bFail) {
+		$("#key" + _indKey).addClass("red");	
+	}
+	$("#key" + _indKey).css("opacity", 1);
+}
+
+function resetLog() {
+	$("#logspan").html("Start typing when you are ready");
+}
+
+function resetKeysVisuals(_indKey, _bSuccess) {
+	for (i = 0; i < konamiPics.length; i++) {
+		$("#key" + i).css("opacity", .2);
+		if (_bSuccess) {
+			$("#key" + i).removeClass("green");
+		}
+	}
+	if (!_bSuccess) {
+		$("#key" + _indKey).removeClass("red");
+	}
+}
 
 function checkKeyR(e) {
 	if (konamiCheck(e.keyCode)) {
@@ -67,11 +134,60 @@ function checkKeyR(e) {
 	}
 }
 
+function testSleep() {
+	if (bWait) {
+		return;
+	}
+	let _nowDate = new Date(); 
+	let _now = _nowDate.getTime();
+	let _diffTime = _now - keyLastTime;
+
+	// == The user is typing but took 2 times the delay and no input
+	if ((keyLastTime != 0) && (_diffTime > (konamiDifficulty * 2))) {
+		updateKeyVisuals(keyGood, true);
+		$("#logspan").html(iconError + " Are you sleeping?");
+		startWait(keyGood, false);
+		keyGood = 0;
+		keyLastTime = 0;
+	}
+	//setTimeout(function() { testSleep() }, 2000);
+}
+
+function startWait(_indKey, _bSuccess) {
+	bWait = true;
+	setTimeout(function() { bWait = false; resetKeysVisuals(_indKey, _bSuccess); resetLog();}, 2000);
+}
+
 /* ********************************** READY ************************** */
 
 $(document).ready(function() {
 	// == Key listening
 	$(document).keyup(checkKeyR);
+	
+	// == Init keys
+	let i = 0
+	for (const elem of konamiPics) {
+		$("#keysection").append("<img id=\"key" + i + "\" class=\"key\" src=\"imgs/" + elem + "\"></img>")
+		i++
+	}
+
+	// == Init difficulties
+	i = 0;
+	difficulties.forEach(difflevel => {
+		let strButton = "<button class=\"button\" id=\"bt" + i + "\" onclick=\"setDifficulty(" + difflevel.speed + ");console.log('CA MARCHE')\" href=\"#\">" + difflevel.text + "</button>";
+		let strCol = "<div class=\"column\">" + strButton;
+		strCol += "<br /><small>" + difflevel.speed + " ms</small></div>";
+		strCol += 
+		$("#difficultysection").append("" + strCol + "");
+		i++;
+	});
+	$("#bt2").addClass("active");
+
+	// == Init log
+	resetLog();
+
+	// == Test user input delay too long
+	setInterval(function() { testSleep(); }, 500);
 });
 
 /* **********************************       ************************** */

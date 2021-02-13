@@ -1,0 +1,79 @@
+body {
+	background-color: whitesmoke;
+}
+
+.mt-3 {
+	margin-top: 3rem;
+}
+.mt-2 {
+	margin-top: 2rem;
+}
+.mt-1 {
+	margin-top: 1rem;
+}
+.fa-2x {
+	vertical-align: sub;
+}
+
+#keysection {
+	background-color: rgb(220, 220, 220);
+	text-align: center;
+	margin-top: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+}
+
+#logsection {
+	background-color: rgb(221, 193, 237);
+	text-align: center;
+	margin-top: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+}
+
+/*
+.topbar {	
+	background-color: black;
+	padding: 1rem 1rem 0rem 1rem;
+}
+*/
+
+.topbar h1 {
+	text-decoration: bold;
+}
+
+/* ===== Milligram buttons ===== */
+.button {
+	background-color: black;
+	border-color: black;
+}
+
+/* ===== Keys ===== */
+.key {
+	opacity: 0.2;
+}
+.red {
+	-webkit-filter: invert(40%) grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(2);
+	filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+}
+.green {
+	-webkit-filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(50deg) saturate(1000%) contrast(0.8);
+	filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(50deg) saturate(1000%) contrast(0.8);
+}
+
+/* ===== Difficulty ===== */
+#difficultysection {
+	line-height: .5;
+}
+
+/* ===== Font awesome ===== */
+.fa-times {
+	color: crimson;
+}
+.fa-heart {
+	color: red;
+}
+.fa-check-circle {
+	color: green;
+}
+
