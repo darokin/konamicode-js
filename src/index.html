@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Konamicode tester</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+	<link rel="stylesheet" href="css/milligram.min.css">
+	<script src="js/jquery-1.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/konamicode.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://kit.fontawesome.com/b6d6234182.js" crossorigin="anonymous"></script>
+	<style>
+		.mt-3 {
+			margin-top: 3rem;
+		}
+		.fa-2x {
+			vertical-align: sub;
+		}
+	</style>
+</head>
+<body style="background-color: whitesmoke;">
+	<div class="container">
+		<div class="row mt-3">
+			<div class="column column-80"><h1>Konami code tester</h1></div>
+			<div class="column column-20 float-right">
+				<div class="float-right">
+					<a href="https://github.com/darokin/">my Github <i class="fab fa-github fa-2x"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="column column-50">
+				<h3>Goal</h3>
+				The goal is to type the konami code (see ref picture for key inputs) with the minimum speed required.<br />
+				Good luck!
+			</div>
+			<div class="column column-50">
+				<h3>Konami code</h3>
+				<img src="imgs/kc_all_800x75.png" alt=""><br />
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="column">
+				<h3>Log</h3>
+				<span id="logspan"></span>
+			</div>
+		</div>
+		<div class="clearfix">
+			<div class="float-left"></div>
+			<div class="float-right">darokin 2010 and a bit of 2021</div>
+	  </div>
+</body>
+</html>
