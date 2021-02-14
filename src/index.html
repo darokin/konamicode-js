@@ -1,11 +1,21 @@
-
+<!--
+       .        ___________________      d4r     .
+      -:---____/   \___   \        \-------------:-
+       :  /   /    /   \   \    \__/ - darokin - :
+	  -:--\_______/\_______/\___/----------------:
+	  
+	   ~  K O N A M I    C O D E    T E S T E R  ~
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Konamicode tester</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"> -->
+	<link rel="preconnect" href="https://fonts.gstatic.com"> 
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
 	<link rel="stylesheet" href="css/milligram.min.css">
 	<link rel="stylesheet" href="css/konamicode.css">
@@ -15,42 +25,40 @@
 </head>
 <body>
 	<div class="container">
-		<div class="mt-3 topbar clearfix">
-			<div class="float-left">
-				<h1>Konami code tester</h1>
+		<div class="topbar mt-3 clearfix">
+			<div class="logo float-left">
+				<div class="inlogo"><img src="imgs/NesCross_x2_trans.png" alt="Konami code tester by darokin"></img></div>
+				<div class="inlogo"><h2>KONAMI CODE TESTER</h2></div>
 			</div>
-			<div class="float-right">
-				<a href="https://github.com/darokin/">my Github <i class="fab fa-github fa-2x"></i></a>
+			<div class="githublink float-right">
+				<a href="https://github.com/darokin/"><i class="fab fa-github fa-2x"></i></a>
 			</div>
 		</div>
 		<div class="row mt-1">
-			<div class="column">
-				<h3>Goal</h3>
-				<p>The goal is to type the konami code (see ref picture for key inputs) with the minimum speed required.<br />
-				Choose your speed wisely<br />
+			<div class="column column-33">
+				<small><i>darokin - made for fun code mix 2010 / 2021</i></small>
+				<p>Silly page done to test Milligram CSS.<br />
+				The goal is to type the konami code (see ref picture for key inputs) with the minimum speed required.<br />
+				Choose your speed wisely ;)<br />
 				Good luck!</p>
 			</div>
-			<div class="column">
-				<h3>Konami code</h3>
-				<img src="imgs/kc_all_800x75.png" alt=""><br />
-				Set difficulty
+			<div class="codesection column column-67">
+				<h4>Konami code</h4>
+				<img src="imgs/kc_full_520x49.png" alt=""><br />
+				<br />
 				<div class="container">
 					<div id="difficultysection" class="row">
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row mt-3">
-			<div id="keysection" class="column column-60 column-offset-20"></div>
+		<div class="row mt-1">
+			<div id="keysection" class="column"></div>
 		</div>
 		<div class="row">
-			<div id="logsection" class="column column-60 column-offset-20">
+			<div id="logsection" class="column">
 				<span id="logspan"></span>
 			</div>
-		</div>
-		<div class="clearfix">
-			<div class="float-left"></div>
-			<div class="float-right">darokin 2010 and a bit of 2021</div>
 		</div>
 	</div>
 </body>

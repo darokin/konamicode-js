@@ -33,15 +33,15 @@ const iconSuccess = "<i class=\"fas fa-heart\"></i>";
 // Max time in ms between 2 keystrokes
 const difficulties = [
 	{"text": "Easy", 
-	"speed": 1000},
+	"speed": 777},
 	{"text": "Normal", 
-	"speed": 750},
+	"speed": 420},
 	{"text": "Hard", 
-	"speed": 500},
+	"speed": 300},
 	{"text": "Hard++", 
-	"speed": 250}
+	"speed": 180}
 ]
-var konamiDifficulty = difficulties[2].speed;
+var konamiDifficulty;
 
 var keyChain = new Array();
 var keyLastTime = 0;
@@ -83,10 +83,7 @@ function konamiCheck(_keyCode) {
 	updateKeyVisuals(keyGood, (_bFailTime || _bFailKey))
 
 	// == Test if Konami code fully done
-	_bSuccess = (keyGood == konamiCodeKeyChain.length - 1)
-	if (_bSuccess) {
-		$("#logspan").html(iconSuccess + " WELL DONE!");
-	}
+	_bSuccess = (!_bFailTime && !_bFailKey && keyGood == konamiCodeKeyChain.length - 1)
 
 	// == Exit and reinit if fail or full success
 	if (_bFailTime || _bFailKey || _bSuccess) {
@@ -131,7 +128,19 @@ function resetKeysVisuals(_indKey, _bSuccess) {
 function checkKeyR(e) {
 	if (konamiCheck(e.keyCode)) {
 		// YEAH
+		for (i = 0; i < konamiPics.length; i++) {
+			$("#key" + i).addClass("green");
+		}
+		$("#logspan").html(iconSuccess + " WELL DONE!");
 	}
+}
+
+function setDifficulty(_speed) {
+	konamiDifficulty = _speed;
+	keyGood = 0;
+	keyLastTime = 0;
+	resetKeysVisuals(0, false);
+	resetLog()
 }
 
 function testSleep() {
@@ -155,7 +164,7 @@ function testSleep() {
 
 function startWait(_indKey, _bSuccess) {
 	bWait = true;
-	setTimeout(function() { bWait = false; resetKeysVisuals(_indKey, _bSuccess); resetLog();}, 2000);
+	setTimeout(function() { bWait = false; resetKeysVisuals(_indKey, _bSuccess); resetLog(); }, (_bSuccess ? 40000 : 20000));
 }
 
 /* ********************************** READY ************************** */
@@ -165,7 +174,7 @@ $(document).ready(function() {
 	$(document).keyup(checkKeyR);
 	
 	// == Init keys
-	let i = 0
+	let i = 0;
 	for (const elem of konamiPics) {
 		$("#keysection").append("<img id=\"key" + i + "\" class=\"key\" src=\"imgs/" + elem + "\"></img>")
 		i++
@@ -174,14 +183,24 @@ $(document).ready(function() {
 	// == Init difficulties
 	i = 0;
 	difficulties.forEach(difflevel => {
-		let strButton = "<button class=\"button\" id=\"bt" + i + "\" onclick=\"setDifficulty(" + difflevel.speed + ");console.log('CA MARCHE')\" href=\"#\">" + difflevel.text + "</button>";
+		let strButton = "<button class=\"button buttonunselected\" id=\"bt" + i + "\" onclick=\"setDifficulty(" + difflevel.speed + ");\" href=\"#\">" + difflevel.text + "</button>";
 		let strCol = "<div class=\"column\">" + strButton;
 		strCol += "<br /><small>" + difflevel.speed + " ms</small></div>";
-		strCol += 
 		$("#difficultysection").append("" + strCol + "");
 		i++;
 	});
-	$("#bt2").addClass("active");
+
+	// Handle button selection
+	$.each($('.buttonunselected'), function (key, value) {
+		$(this).click(function (e) {
+		  $('.buttonselected').removeClass('buttonselected').addClass('buttonunselected');
+		  $(this).removeClass('buttonunselected').addClass('buttonselected');
+		});
+	});
+	// == Set difficulty to normal by default
+	konamiDifficulty = difficulties[1].speed
+	$("#bt1").addClass("buttonselected");
+	$("#bt1").removeClass("buttonunselected");
 
 	// == Init log
 	resetLog();
@@ -192,7 +211,7 @@ $(document).ready(function() {
 
 /* **********************************       ************************** */
 
-/*
+/* 2010 version
 function konamiCheckOld(_keyCode) {
 	var _nowDate = new Date(); 
 	var _now = _nowDate.getTime();

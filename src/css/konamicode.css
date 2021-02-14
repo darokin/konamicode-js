@@ -1,6 +1,14 @@
 body {
 	background-color: whitesmoke;
+	/* hot pink */
 }
+
+@media (min-width: 80.0rem) { 
+	
+}
+.container {
+	max-width: 96.0rem;
+}	
 
 .mt-3 {
 	margin-top: 3rem;
@@ -16,7 +24,7 @@ body {
 }
 
 #keysection {
-	background-color: rgb(220, 220, 220);
+	background-color: #A0E7E5;
 	text-align: center;
 	margin-top: 1rem;
 	padding-top: 1rem;
@@ -24,28 +32,70 @@ body {
 }
 
 #logsection {
-	background-color: rgb(221, 193, 237);
+	background-color: #B4F8C8;
 	text-align: center;
 	margin-top: 1rem;
 	padding-top: 1rem;
 	padding-bottom: 0.5rem;
 }
 
-/*
-.topbar {	
-	background-color: black;
-	padding: 1rem 1rem 0rem 1rem;
+.codesection {
+	text-align: center;
 }
-*/
 
-.topbar h1 {
-	text-decoration: bold;
+/* == Top bar == */
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.logo h2 {
+	font-family: 'Oswald', sans-serif;
+	font-size: 3.4em;
+	color: #000000;
+	text-shadow: rgb(189, 189, 189) 1px 0 3px;
+ }
+
+ .inlogo {
+	padding: 4px;
+ }
+
+.githublink {
+	margin-top: 2rem;
 }
 
 /* ===== Milligram buttons ===== */
 .button {
 	background-color: black;
 	border-color: black;
+	color:white;
+}
+
+.button:focus, .button:hover,
+button:focus,
+button:hover,
+input[type='button']:focus,
+input[type='button']:hover,
+input[type='reset']:focus,
+input[type='reset']:hover,
+input[type='submit']:focus,
+input[type='submit']:hover {
+	background-color: transparent;
+	border-color: black;
+	color: black;
+}
+
+.buttonunselected {
+	background-color: black;
+}
+
+.buttonselected,
+.buttonselected:hover,
+.buttonselected:focus {
+	background-color: transparent;
+	border-color: red;
+	color: black;
 }
 
 /* ===== Keys ===== */
