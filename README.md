@@ -1,6 +1,10 @@
 # konamicode-js
 
+<<<<<<< HEAD
 ![Generic badge](https://img.shields.io/badge/Useless-100&#37;-cyan.svg)
+=======
+![Generic badge](https://img.shields.io/badge/Useless-100%-blue.svg)
+>>>>>>> 0c20eade7df648934ec85fffd88783be47a79219
 ![Generic badge](https://img.shields.io/badge/Build%20with-%20❤%20-red.svg)
 [![GitHub license](https://img.shields.io/github/license/darokin/konamicode-js.svg)](https://github.com/darokin/konamicode-js/blob/main/LICENSE)
 
