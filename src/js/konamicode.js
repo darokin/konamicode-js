@@ -164,7 +164,7 @@ function testSleep() {
 
 function startWait(_indKey, _bSuccess) {
 	bWait = true;
-	setTimeout(function() { bWait = false; resetKeysVisuals(_indKey, _bSuccess); resetLog(); }, (_bSuccess ? 40000 : 20000));
+	setTimeout(function() { bWait = false; resetKeysVisuals(_indKey, _bSuccess); resetLog(); }, (_bSuccess ? 4000 : 2000));
 }
 
 /* ********************************** READY ************************** */
